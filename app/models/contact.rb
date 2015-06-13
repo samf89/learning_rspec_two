@@ -3,6 +3,7 @@ class Contact < ActiveRecord::Base
   validates :lastname,  presence: true
   validates :email,     presence: true, uniqueness: true
 
+  has_many :phones
   scope :by_letter, -> (letter) { where('lastname LIKE ?', "#{letter}%").order(:lastname) }
 
   def full_name
