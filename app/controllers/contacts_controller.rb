@@ -1,24 +1,19 @@
 class ContactsController < ApplicationController
+  before_action :set_contact, only: %i(show edit update destroy)
+  before_action :set_contacts, only: :index
+  before_action :set_new_contact, only: :new
 
-  def index
-  end
+  private
+    def set_new_contact
+      @contact = Contact.new
+    end
 
-  def show
-  end
+    def set_contact
+      @contact = Contact.find(params[:id])
+    end
 
-  def new
-  end
-
-  def create
-  end
-
-  def edit
-  end
-
-  def update
-  end
-
-  def destroy
-  end
+    def set_contacts
+      @contacts = (letter = params[:letter]).present? ? Contact.by_letter(letter) : Contact.all
+    end
 
 end
