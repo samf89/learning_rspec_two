@@ -37,14 +37,21 @@ describe Contact do
 
   describe 'filter by last name letter' do
     before :each do
+      @smith   = create(:contact, lastname: 'smith')
+      @johnson = create(:contact, lastname: 'johnson')
+      @jones   = create(:contact, lastname: 'jones')
     end
 
     context 'matching letters' do 
-      it 'returns a sorted array of results that match' 
+      it 'returns a sorted array of results that match' do
+        expect(Contact.by_letter('j')).to eq [@johnson, @jones]
+      end
     end
 
     context 'non-matching letters' do 
-      it 'omits results that do not match'
+      it 'omits results that do not match' do
+        expect(Contact.by_letter('j')).not_to include @smith
+      end
     end
   end
 
