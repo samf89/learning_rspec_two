@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
-  resources :contacts
-  resources :phones
+  resources :contacts do
+    resources :phones
+  end
 end
