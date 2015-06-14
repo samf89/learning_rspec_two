@@ -13,5 +13,9 @@ FactoryGirl.define do
     factory :invalid_contact do 
       firstname nil
     end
+
+    factory :hidden_contact do
+      hidden true
+    end
   end
 end

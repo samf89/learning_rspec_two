@@ -176,15 +176,21 @@ describe ContactsController do
   end
 
   describe 'PATCH hide' do
-    context 'successful hide' do 
-      it 'marks the contact as being hidden'
-      it 'redirects to the index page'
+    before :each do 
+      @contact = create(:contact)
+      patch :hide, id: @contact.id
+    end
+    
+    context 'successfully hide contact' do 
+      it 'marks the contact as hidden' do
+        expect(@contact.reload.hidden).to eq true
+      end
+
+      it 'redirects to the contacts#index page' do
+        expect(response).to redirect_to contacts_path
+      end
     end
 
-    context 'unsuccessful hide' do 
-      it 'does not mark the contact as hidden'
-      it 're renders the contacts show page'
-    end
   end
 
 end

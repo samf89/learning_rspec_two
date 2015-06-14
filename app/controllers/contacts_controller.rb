@@ -1,5 +1,5 @@
 class ContactsController < ApplicationController
-  before_action :set_contact, only: %i(show edit update destroy)
+  before_action :set_contact, only: %i(show edit update destroy hide)
   before_action :set_contacts, only: :index
   before_action :set_new_contact, only: :new
 
@@ -23,6 +23,14 @@ class ContactsController < ApplicationController
   def destroy
     @contact.destroy
     redirect_to contacts_path
+  end
+
+  def hide
+    if @contact.update_attributes(hidden: true)
+      redirect_to contacts_path
+    else 
+      render :show
+    end
   end
 
   private
