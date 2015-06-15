@@ -1,4 +1,5 @@
 class ContactsController < ApplicationController
+  before_action :authenticate, expect: %i(index, show)
   before_action :set_contact, only: %i(show edit update destroy hide)
   before_action :set_contacts, only: :index
   before_action :set_new_contact, only: :new
