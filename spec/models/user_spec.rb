@@ -6,7 +6,7 @@ describe User do
     @user = build(:user)
   end
 
-  it 'is valid with a username, firstname, lastname and email' do
+  it 'is valid with a username, firstname, lastname and email, and password' do
     expect(@user).to be_valid
   end
 
@@ -50,5 +50,14 @@ describe User do
     expect(@user.errors[:username]).to include("has already been taken")
   end
 
+  it 'is invalid if passwords dont match' do
+    @user.password = '123456'
+    @user.password_confirmation = '89898989'
+    expect(@user).not_to be_valid
+    puts 'in the user test'
+    puts @user.errors.inspect
+    puts 'at the end of the user test'
+    expect(@user.errors[:password_confirmation]).to include("doesn't match Password")
+  end
 
 end
