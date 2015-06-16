@@ -7,6 +7,8 @@ class Contact < ActiveRecord::Base
   accepts_nested_attributes_for :phones
   validates :phones, length: { is: 3 }
 
+  belongs_to :user
+
   scope :by_letter, -> (letter) { where('lastname LIKE ?', "#{letter}%").order(:lastname) }
 
   def full_name

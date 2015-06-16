@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe Contact do 
-  it 'is valid with a firstname, lastname and email' do
+  it 'is valid with a firstname, lastname and email, and user' do
     expect(create(:contact)).to be_valid
   end
 

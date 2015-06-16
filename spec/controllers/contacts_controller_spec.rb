@@ -2,12 +2,12 @@ require 'rails_helper'
 
 describe ContactsController do
 
-  before :each do 
-    user = create(:admin)
-    session[:user_id] = user.id
-  end
-
   describe 'accessing site as admin' do
+    before :each do 
+      user = create(:admin)
+      session[:user_id] = user.id
+    end
+
     describe 'GET #index' do
       before :each do 
         @smith   = create(:contact, lastname: 'smith')
@@ -199,4 +199,21 @@ describe ContactsController do
 
     end
   end
+  
+  describe 'accessing as regular user' do
+    # for now these are the same as above so no point dusplacting it
+  end
+
+  describe 'accessing as a guest user' do 
+    # index and show examples are the same as admin and user
+
+    describe 'GET #new' do 
+      it 'requires a login' do 
+        get :new
+        expect(response).to redirect_to login_path
+      end
+    end
+
+  end
+
 end

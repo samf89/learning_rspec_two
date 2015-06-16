@@ -1,5 +1,6 @@
 FactoryGirl.define do
   factory :contact do
+    association :user
     firstname { Faker::Name.first_name }
     lastname  { Faker::Name.last_name }
     email     { Faker::Internet.email }
