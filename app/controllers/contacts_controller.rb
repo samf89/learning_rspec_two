@@ -1,5 +1,4 @@
 class ContactsController < ApplicationController
-  before_action :authenticate, expect: %i(index, show)
   before_action :set_contact, only: %i(show edit update destroy hide)
   before_action :set_contacts, only: :index
   before_action :set_new_contact, only: :new
@@ -48,10 +47,11 @@ class ContactsController < ApplicationController
     end
 
     def params_for_contact
-      params.require(:contact).permit(:firstname, 
-                                      :lastname,
-                                      :email,
-                                      phones_attributes: [:phone_type, :phone_number] )
+      params.require(:contact)
+            .permit(:firstname, 
+                    :lastname,
+                    :email,
+                    phones_attributes: [:phone_type, :phone_number] )
     end
 
 end
