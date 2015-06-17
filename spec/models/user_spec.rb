@@ -54,9 +54,6 @@ describe User do
     @user.password = '123456'
     @user.password_confirmation = '89898989'
     expect(@user).not_to be_valid
-    puts 'in the user test'
-    puts @user.errors.inspect
-    puts 'at the end of the user test'
     expect(@user.errors[:password_confirmation]).to include("doesn't match Password")
   end
 

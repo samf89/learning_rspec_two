@@ -10,5 +10,10 @@ FactoryGirl.define do
     factory :admin do
       admin true
     end
+
+    factory :invalid_user do 
+      password 'password'
+      password_confirmation 'not_password'
+    end
   end
 end
