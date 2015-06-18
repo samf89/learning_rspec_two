@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe UsersController do 
+describe UsersController, type: :controller do 
 
   describe 'GET #new' do
     before :each do
@@ -27,6 +27,12 @@ describe UsersController do
       it 'redirects to the users show page' do 
         post :create, user: attributes_for(:user)
         expect(response).to redirect_to user_path(assigns(:user))
+      end
+
+      it 'logs the user into the website' do
+        post :create, user: attributes_for(:user)
+        user = assigns(:user)
+        expect(session[:user_id]).to eq user.id
       end
     end
 
