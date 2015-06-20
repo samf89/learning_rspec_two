@@ -1,5 +1,10 @@
 class UsersController < ApplicationController
   before_action :set_user, only: %i(show edit update destroy)
+  before_action :has_admin_access, only: %i(new create)
+
+  def index
+    @users = User.all
+  end
 
   def new
     @user = User.new
@@ -8,7 +13,6 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      log_in(@user)
       redirect_to user_path(@user.id)
     else
       render 'new'

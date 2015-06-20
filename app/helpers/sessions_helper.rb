@@ -17,4 +17,12 @@ module SessionsHelper
     @current_user = nil
   end
 
+  def user_is_admin?
+    current_user.admin?
+  end
+
+  def has_admin_access
+    redirect_to root_path unless user_is_admin?
+  end
+
 end

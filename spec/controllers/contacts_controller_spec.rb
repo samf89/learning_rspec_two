@@ -4,7 +4,7 @@ describe ContactsController do
 
   describe 'accessing site as admin' do
     before :each do 
-      user = create(:admin)
+      user = create(:admin_user)
       session[:user_id] = user.id
     end
 
