@@ -399,7 +399,37 @@ describe ContactsController do
   end
 
   describe 'accessing as a guest user' do 
-    # index and show examples are the same as admin and user
+    
+    describe 'GET #index' do 
+      before :each do 
+        @contact_one = create(:contact)
+        @contact_two = create(:contact)
+        get :index
+      end
+
+      it 'returns an array of users' do
+        expect(assigns(:contacts)).to match_array [@contact_one, @contact_two]
+      end
+
+      it 'renders the :index page' do
+        expect(response).to render_template :index
+      end
+    end
+
+    describe 'GET #show' do 
+      before :each do 
+        @contact = create(:contact)
+        get :show, id: @contact.id
+      end
+
+      it 'assigns a contact to @contact' do 
+        expect(assigns(:contact)).to eq @contact
+      end
+       
+      it 'renders the :show page' do 
+        expect(response).to render_template :show
+      end
+    end
 
     describe 'GET #new' do 
       it 'requires a login' do 

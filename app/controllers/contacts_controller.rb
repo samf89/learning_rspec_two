@@ -2,7 +2,7 @@ class ContactsController < ApplicationController
   before_action :set_contact, only: %i(show edit update destroy hide)
   before_action :set_contacts, only: :index
   before_action :set_new_contact, only: :new
-  before_action :logged_in_user, only: [:new, :edit, :create, :destroy, :update]
+  before_action :logged_in_user, only: %i(new edit create destroy update)
 
 
   def create
