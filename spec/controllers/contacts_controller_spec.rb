@@ -2,62 +2,48 @@ require 'rails_helper'
 
 describe ContactsController do
 
+  shared_examples 'public access to contacts' do 
+    before :each do 
+      @contact = create(:contact, firstname: 'Lawrence', lastname: 'Smith')
+    end
+
+    describe 'GET #index' do 
+      before :each do 
+        get :index 
+      end
+
+      it 'populates an array of contacts' do
+        expect(assigns(:contacts)).to match_array [@contact]
+      end
+
+      it 'renders the :index template' do
+        expect(response).to render_template :index
+      end
+    end
+
+    describe 'GET #show' do 
+      before :each do 
+        get :show, id: @contact.id
+      end
+
+      it 'assigns the requested contact to @contact' do
+        expect(assigns(:contact)).to eq @contact
+      end
+
+      it 'renders the :show template' do
+        expect(response).to render_template :show
+      end
+    end
+
+  end
+
   describe 'accessing site as admin' do
     before :each do 
       user = create(:admin_user)
       session[:user_id] = user.id
     end
 
-    describe 'GET #index' do
-      before :each do 
-        @smith   = create(:contact, lastname: 'smith')
-        @johnson = create(:contact, lastname: 'johnson')
-        @jones   = create(:contact, lastname: 'jones')
-      end
-
-      context 'with params[:letter]' do
-        before :each do 
-          get :index, letter: 's'
-        end
-
-        it 'populates an array of contacts starting with the passed in letter' do
-          expect(assigns(:contacts)).to eq [@smith]
-        end
-
-        it 'renders the index view' do
-          expect(response).to render_template :index
-        end
-      end
-
-      context 'without params[:letter]' do
-        before :each do 
-          get :index
-        end
-
-        it 'populates an array containing all contacts' do
-          expect(assigns(:contacts)).to match_array [@smith, @johnson, @jones]
-        end
-
-        it 'renders the index view' do 
-          expect(response).to render_template :index
-        end
-      end
-    end
-
-    describe 'GET #show' do
-      before :each do 
-        @contact = create(:contact)
-        get :show, id: @contact.id
-      end
-
-      it 'assigns a contact to @contact' do 
-        expect(assigns(:contact)).to eq @contact
-      end
-
-      it 'renders the show view' do
-        expect(response).to render_template :show
-      end
-    end
+    it_behaves_like 'public access to contacts'
 
     describe 'GET #new' do 
       before :each do 
@@ -206,56 +192,7 @@ describe ContactsController do
       session[:user_id] = user.id
     end
 
-    describe 'GET #index' do
-      before :each do 
-        @smith   = create(:contact, lastname: 'smith')
-        @johnson = create(:contact, lastname: 'johnson')
-        @jones   = create(:contact, lastname: 'jones')
-      end
-
-      context 'with params[:letter]' do
-        before :each do 
-          get :index, letter: 's'
-        end
-
-        it 'populates an array of contacts starting with the passed in letter' do
-          expect(assigns(:contacts)).to eq [@smith]
-        end
-
-        it 'renders the index view' do
-          expect(response).to render_template :index
-        end
-      end
-
-      context 'without params[:letter]' do
-        before :each do 
-          get :index
-        end
-
-        it 'populates an array containing all contacts' do
-          expect(assigns(:contacts)).to match_array [@smith, @johnson, @jones]
-        end
-
-        it 'renders the index view' do 
-          expect(response).to render_template :index
-        end
-      end
-    end
-
-    describe 'GET #show' do
-      before :each do 
-        @contact = create(:contact)
-        get :show, id: @contact.id
-      end
-
-      it 'assigns a contact to @contact' do 
-        expect(assigns(:contact)).to eq @contact
-      end
-
-      it 'renders the show view' do
-        expect(response).to render_template :show
-      end
-    end
+    it_behaves_like 'public access to contacts'
 
     describe 'GET #new' do 
       before :each do 
@@ -400,36 +337,7 @@ describe ContactsController do
 
   describe 'accessing as a guest user' do 
     
-    describe 'GET #index' do 
-      before :each do 
-        @contact_one = create(:contact)
-        @contact_two = create(:contact)
-        get :index
-      end
-
-      it 'returns an array of users' do
-        expect(assigns(:contacts)).to match_array [@contact_one, @contact_two]
-      end
-
-      it 'renders the :index page' do
-        expect(response).to render_template :index
-      end
-    end
-
-    describe 'GET #show' do 
-      before :each do 
-        @contact = create(:contact)
-        get :show, id: @contact.id
-      end
-
-      it 'assigns a contact to @contact' do 
-        expect(assigns(:contact)).to eq @contact
-      end
-       
-      it 'renders the :show page' do 
-        expect(response).to render_template :show
-      end
-    end
+    it_behaves_like 'public access to contacts'
 
     describe 'GET #new' do 
       it 'requires a login' do 
