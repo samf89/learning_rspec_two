@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe UsersController, type: :controller do 
+describe UsersController do 
   describe 'non admin access' do 
     before :each do 
       @user = create(:user)
