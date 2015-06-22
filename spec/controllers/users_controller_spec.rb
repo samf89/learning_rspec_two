@@ -4,7 +4,7 @@ describe UsersController do
   describe 'non admin access' do 
     before :each do 
       @user = create(:user)
-      session[:user_id] = @user.id
+      set_user_session @user
     end
 
     describe 'GET #index' do 
@@ -38,7 +38,7 @@ describe UsersController do
   describe 'admin access' do 
     before :each do 
       @admin_user = create(:admin_user)
-      session[:user_id] = @admin_user.id
+      set_user_session @admin_user
     end
 
     describe 'GET #index' do 

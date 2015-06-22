@@ -23,6 +23,7 @@ require 'rspec/rails'
 # Checks for pending migrations before tests are run.
 # If you are not using ActiveRecord, you can remove this line.
 ActiveRecord::Migration.maintain_test_schema!
+Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 
 RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
@@ -35,6 +36,7 @@ RSpec.configure do |config|
 
   # Include factory girl to make things easier
   config.include FactoryGirl::Syntax::Methods
+  config.include LoginMacros
 
   # RSpec Rails can automatically mix in different behaviours to your tests
   # based on their file location, for example enabling you to call `get` and
