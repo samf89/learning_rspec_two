@@ -1,5 +1,17 @@
 %h2 
   This is the login page
 
-%p
-  There will be a form here, with the username and email fields
+= @error_message
+= form_for :session, url: login_path do |f| 
+  = f.label :email
+  = f.email_field :email
+
+  = f.label :password
+  = f.password_field :password
+
+  = f.submit 'Log In'
+
+%p 
+  New users will be able to click on this link 
+  to create a new account
+

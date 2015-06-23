@@ -6,6 +6,7 @@ class SessionsController < ApplicationController
       log_in(@user)
       redirect_to user_path(@user)
     else
+      @error_message = 'Incorrect Email/Password'
       render :new
     end
   end
