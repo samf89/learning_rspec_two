@@ -2,6 +2,13 @@ Rails.application.routes.draw do
 
   root 'static_pages#home'
 
+  controller :static_pages do 
+    get 'home'    => :home
+    get 'help'    => :help
+    get 'about'   => :about
+    get 'contact' => :contact
+  end
+
   resources :users 
 
   resources :contacts do
