@@ -6,3 +6,13 @@
 
 = link_to 'About', about_path
 
+%p 
+  Below is a test of getting a modal
+  to render using bootstrap
+
+
+= link_to 'About Modal', about_path, data: { target: '#aboutModal', toggle: 'modal', remote: true } 
+
+%div{ id: 'aboutModal', class: 'modal fade', tabindex: '-1', role: 'dialog', "aria-labelledby" => 'editModal' }
+  %div{ class: 'modal-dialog', role: 'document' }
+    %div{ class: 'modal-content' }
