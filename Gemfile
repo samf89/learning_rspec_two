@@ -13,6 +13,7 @@ gem 'haml'
 gem 'haml-rails'
 gem 'erb2haml'
 gem 'bcrypt'
+gem 'bootstrap-sass'
 
 group :development, :test do
   gem 'byebug'
