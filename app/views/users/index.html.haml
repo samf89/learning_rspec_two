@@ -5,4 +5,12 @@
   The number of users are 
   = @users.count
 
+- @users.each do |user|
+  %p 
+    Username
+    = user.username
+    - if current_user.admin? && !user.admin?
+      = link_to 'Hide User', id: "hide-user-#{user.id}"
+      = link_to 'Delete User', id: "delete-user-#{user.id}"
+
 = link_to 'Add New User', new_user_path
