@@ -13,8 +13,7 @@ feature 'User management' do
 
     expect(page).to have_content 'fake_user'
 
-    save_and_open_page
-    find_button("#delete-user-#{@user.id}").click
+    find_by_id("delete-user-#{@user.id}").click
 
     expect(page).not_to have_content 'fake_user'
   end

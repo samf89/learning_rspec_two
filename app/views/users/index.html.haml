@@ -10,7 +10,7 @@
     Username
     = user.username
     - if current_user.admin? && !user.admin?
-      = link_to 'Hide User', id: "hide-user-#{user.id}"
-      = link_to 'Delete User', id: "delete-user-#{user.id}"
+      = link_to 'Delete User', user_path(user.id), method: :delete,id: "delete-user-#{user.id}", data: { remote: true }
+
 
 = link_to 'Add New User', new_user_path
