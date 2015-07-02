@@ -2,6 +2,29 @@ require 'rails_helper'
 
 describe ContactsController do
 
+  shared_examples 'mucking about with mocks and stubs' do
+  #   let(:contact) { build_stubbed(:contact, firstname: 'Lawrence', lastname: 'Smith') }
+
+  #   before :each do 
+  #     # allow(Contact).to receive(:persisted?).and_return(true)
+  #     # allow(Contact).to receive(:order).with('lastname', 'firstname').and_return([contact])
+  #     # allow(Contact).to receive(:find).with(contact.id.to_s).and_return(contact)
+  #     # allow(Contact).to receive(:save).and_return(true)
+  #   end
+  #   describe 'GET #show' do 
+
+  #     it 'assigns the requested contact to @contact' do 
+  #       get :show, id: contact
+  #       expect(assigns(:contact)).to eq contact
+  #     end
+
+  #     it 'renders the :show template' do 
+  #       get :show, id: contact
+  #       expect(response).to render_template :show
+  #     end
+  #   end
+  end
+
   shared_examples 'public access to contacts' do 
     let(:contact) { create(:contact, firstname: 'Lawrence', lastname: 'Smith') }
 
@@ -183,6 +206,7 @@ describe ContactsController do
 
     it_behaves_like 'public access to contacts'
     it_behaves_like 'full access to contacts'
+    it_behaves_like 'mucking about with mocks and stubs'
 
   end
   
