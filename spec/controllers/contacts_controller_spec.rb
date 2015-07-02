@@ -3,9 +3,7 @@ require 'rails_helper'
 describe ContactsController do
 
   shared_examples 'public access to contacts' do 
-    before :each do 
-      @contact = create(:contact, firstname: 'Lawrence', lastname: 'Smith')
-    end
+    let(:contact) { create(:contact, firstname: 'Lawrence', lastname: 'Smith') }
 
     describe 'GET #index' do 
       before :each do 
@@ -13,7 +11,7 @@ describe ContactsController do
       end
 
       it 'populates an array of contacts' do
-        expect(assigns(:contacts)).to match_array [@contact]
+        expect(assigns(:contacts)).to match_array [contact]
       end
 
       it 'renders the :index template' do
@@ -23,11 +21,11 @@ describe ContactsController do
 
     describe 'GET #show' do 
       before :each do 
-        get :show, id: @contact.id
+        get :show, id: contact.id
       end
 
       it 'assigns the requested contact to @contact' do
-        expect(assigns(:contact)).to eq @contact
+        expect(assigns(:contact)).to eq contact
       end
 
       it 'renders the :show template' do
@@ -53,13 +51,14 @@ describe ContactsController do
     end
 
     describe 'GET #edit' do 
+      let(:contact) { create(:contact) }
+
       before :each do 
-        @contact = create(:contact)
-        get :edit, id: @contact.id
+        get :edit, id: contact.id
       end
 
       it 'assigns the correct contact to @contact' do 
-        expect(assigns(:contact)).to eq @contact
+        expect(assigns(:contact)).to eq contact
       end
 
       it 'renders the edit view' do
@@ -144,18 +143,16 @@ describe ContactsController do
     end
 
     describe 'DELETE #destroy' do
-      before :each do 
-        @contact = create(:contact)
-      end
+      let!(:contact) { create(:contact) } #exclamation point forces this to be ran before tests
 
       it 'deletes the contact' do 
         expect {
-          delete :destroy, id: @contact.id
+          delete :destroy, id: contact.id
         }.to change(Contact, :count).by -1
       end
 
       it 'redirects to the contact index page' do
-        delete :destroy, id: @contact.id
+        delete :destroy, id: contact.id
         expect(response).to redirect_to contacts_path
       end
     end
