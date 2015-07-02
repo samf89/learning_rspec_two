@@ -1,6 +1,16 @@
 require 'rails_helper'
 
 describe Contact do 
+
+  subject { Contact.new }
+  it { is_expected.to validate_presence_of :firstname }
+  it { is_expected.to validate_presence_of :lastname }
+  it { is_expected.to validate_presence_of :email }
+
+  subject { create(:contact, firstname: 'John', lastname: 'Doe') }
+  it { is_expected.to be_named 'John Doe' }
+
+
   it 'is valid with a firstname, lastname and email, and user' do
     expect(create(:contact)).to be_valid
   end
